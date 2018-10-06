@@ -2,6 +2,8 @@
 
 namespace Booni3\Linnworks;
 
+use Booni3\Linnworks\Api\Orders;
+
 class Linnworks
 {
     private $applicationId;
@@ -9,6 +11,7 @@ class Linnworks
     private $token;
     protected $bearer;
     protected $server;
+
 
     public function __construct($applicationId, $applicationSecret, $token, $bearer = null, $server = null)
     {
@@ -64,6 +67,15 @@ class Linnworks
                 $this->server);
         }
         throw new \BadMethodCallException("Undefined method [{$method}] called.");
+    }
+    
+    /**
+     * @return Orders
+     * @throws \ReflectionException
+     */
+    public function Orders()
+    {
+        return $this->getApiInstance('orders');
     }
 
     /**
