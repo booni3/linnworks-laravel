@@ -9,27 +9,11 @@ class Orders extends Api
         dump('get orders');
 
         $res = $this->_get('Orders/GetOpenOrders', [
-            "entriesPerPage" => 100,
-            "pageNumber" => 0,
+            "entriesPerPage" => 25,
+            "pageNumber" => 1,
             "filters" => null,
             "sorting" => null,
-            "fulfilmentCenter" => null,
-            "additionalFilters" => null
-        ]);
-
-        dump($res);
-    }
-
-    public function getOpenOrders1()
-    {
-        dump('get orders 1 ');
-
-        $res = $this->_get('Orders/GetOpenOrders', [
-            "entriesPerPage" => 100,
-            "pageNumber" => 0,
-            "filters" => null,
-            "sorting" => null,
-            "fulfilmentCenter" => null,
+            "fulfilmentCenter" => 'e41b4701-0885-430d-9623-d840d9d46dd6',
             "additionalFilters" => null
         ]);
 

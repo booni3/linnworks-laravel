@@ -6,9 +6,6 @@ class Auth extends Api
 {
     public function AuthorizeByApplication()
     {
-        dump('Auth');
-
-
         $res = $this->_get('Auth/AuthorizeByApplication', [
             "applicationId" => $this->applicationId,
             "applicationSecret" => $this->applicationSecret,

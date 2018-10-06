@@ -11,9 +11,9 @@ class Api
     protected $applicationId;
     protected $applicationSecret;
     protected $token;
-
     protected $bearer;
     protected $server;
+    protected $retry = 2;
 
     public function __construct($applicationId, $applicationSecret, $token, $bearer = null, $server = null)
     {
@@ -66,7 +66,7 @@ class Api
      */
     protected function getClient()
     {
-        $server = $this->server ??'https://api.linnworks.net';
+        $server = $this->server ?? 'https://api.linnworks.net';
         return new Client([
             'base_uri' => $server . '/api/', 'handler' => $this->createHandler()
         ]);

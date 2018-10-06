@@ -12,30 +12,32 @@ class Linnworks
     private $applicationId;
     private $applicationSecret;
     private $token;
+    protected $bearer;
+    protected $server;
 
-    protected $bearer = null;
-    protected $server = null;
-
-    public function __construct($applicationId, $applicationSecret, $token)
+    public function __construct($applicationId, $applicationSecret, $token, $bearer = null, $server = null)
     {
         $this->applicationId = $applicationId;
         $this->applicationSecret = $applicationSecret;
         $this->token = $token;
+        $this->bearer = $bearer;
+        $this->server = $server;
     }
 
     public function make()
     {
-        if(!$this->bearer){
-            $this->getBearer();
-        }
-        return $this;
-//        return new static($this->applicationId, $this->applicationSecret, $this->token);
+        if(!$this->bearer) $this->getBearer();
+        return new static (
+            $this->applicationId,
+            $this->applicationSecret,
+            $this->token,
+            $this->bearer,
+            $this->server);
     }
 
     public function getBearer()
     {
-        $auth = new Api\Auth($this->applicationId, $this->applicationSecret, $this->token);
-        $res = $auth->AuthorizeByApplication();
+        $res = $this->Auth()->AuthorizeByApplication();
         $this->bearer = $res['Token'];
         $this->server = $res['Server'];
     }
@@ -58,7 +60,5 @@ class Linnworks
     {
         return $this->getApiInstance($method);
     }
-
-
 
 }
