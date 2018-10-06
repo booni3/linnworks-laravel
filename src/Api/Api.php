@@ -82,6 +82,41 @@ class Api
      */
     protected function createHandler()
     {
+        $handler_stack = HandlerStack::create();
+        $handler_stack->push(Middleware::retry(
+            function ($retry, $request, $value, $reason) {
+                if ($value !== null) return false; // If we have a value already, we should be able to proceed quickly.
+                return $retry < 10; // reject after 10 tries
+            },
+            function ($retries, $response) {
+                return $retries * 200; //0.2, 0.4, 0.6 seconds etc..
+            }
+        ));
+        $handler_stack->push(Middleware::mapRequest(function (RequestInterface $r) {
+            //
+            return $r;
+        }));
+//        $handler_stack->push($this->addheader('Authorization', $this->bearer));
+        return $handler_stack;
     }
 
+    /**
+     * Add header to request
+     *
+     * @param $header
+     * @param $value
+     * @return \Closure
+     */
+    protected function addheader($header, $value)
+    {
+        return function (callable $handler) use ($header, $value) {
+            return function (
+                RequestInterface $request,
+                array $options
+            ) use ($handler, $header, $value) {
+                $request = $request->withHeader($header, $value);
+                return $handler($request, $options);
+            };
+        };
+    }
 }
