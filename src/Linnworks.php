@@ -30,12 +30,7 @@ class Linnworks
     public function make()
     {
         if(!$this->bearer) $this->refreshToken();
-        return new static (
-            $this->applicationId,
-            $this->applicationSecret,
-            $this->token,
-            $this->bearer,
-            $this->server);
+        return new static ($this->applicationId, $this->applicationSecret, $this->token, $this->bearer, $this->server);
     }
 
     /**
@@ -59,12 +54,7 @@ class Linnworks
     {
         $class = "\\Booni3\\Linnworks\\Api\\".ucwords($method);
         if (class_exists($class) && ! (new \ReflectionClass($class))->isAbstract()) {
-            return new $class(
-                $this->applicationId,
-                $this->applicationSecret,
-                $this->token,
-                $this->bearer,
-                $this->server);
+            return new $class($this->applicationId, $this->applicationSecret, $this->token, $this->bearer, $this->server);
         }
         throw new \BadMethodCallException("Undefined method [{$method}] called.");
     }

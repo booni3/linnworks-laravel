@@ -35,10 +35,7 @@ class LinnworksServiceProvider extends ServiceProvider
             $applicationSecret = $config->get('linnworks.applicationSecret');
             $token = $config->get('linnworks.token');
 
-            return new Linnworks(
-                $applicationId,
-                $applicationSecret,
-                $token);
+            return new Linnworks($applicationId, $applicationSecret, $token);
         });
 
         $this->app->alias(Linnworks::class, 'linnworks');
