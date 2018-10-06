@@ -5,6 +5,9 @@ namespace Booni3\Linnworks\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use Psr\Http\Message\RequestInterface;
 
 class Api
 {
@@ -13,7 +16,6 @@ class Api
     protected $token;
     protected $bearer;
     protected $server;
-    protected $retry = 2;
 
     public function __construct($applicationId, $applicationSecret, $token, $bearer = null, $server = null)
     {
@@ -53,7 +55,7 @@ class Api
                     'Authorization' => $this->bearer
                 ]
             ]);
-            return json_decode((string) $response->getBody(), true);
+            return json_decode((string)$response->getBody(), true);
         } catch (ClientException $e) {
             throw $e;
         }
@@ -68,18 +70,18 @@ class Api
     {
         $server = $this->server ?? 'https://api.linnworks.net';
         return new Client([
-            'base_uri' => $server . '/api/', 'handler' => $this->createHandler()
+            'base_uri' => $server . '/api/',
+            'handler' => $this->createHandler()
         ]);
     }
 
     /**
      * Create the client handler.
      *
-     * @return \GuzzleHttp\HandlerStack
+     * @return HandlerStack
      */
     protected function createHandler()
     {
-        return null;
     }
 
 }
