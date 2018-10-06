@@ -6,8 +6,6 @@ class Orders extends Api
 {
     public function getOpenOrders()
     {
-        dump('get orders');
-
         $res = $this->_get('Orders/GetOpenOrders', [
             "entriesPerPage" => 25,
             "pageNumber" => 1,
@@ -16,8 +14,7 @@ class Orders extends Api
             "fulfilmentCenter" => 'e41b4701-0885-430d-9623-d840d9d46dd6',
             "additionalFilters" => null
         ]);
-
-        dump($res);
+        return $res;
     }
 
 }

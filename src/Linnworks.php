@@ -1,11 +1,6 @@
 <?php
 
-
 namespace Booni3\Linnworks;
-
-use Booni3\Linnworks\Api\Orders;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\HandlerStack;
 
 class Linnworks
 {
@@ -24,9 +19,14 @@ class Linnworks
         $this->server = $server;
     }
 
+    /**
+     * Create instance of Client
+     *
+     * @return Linnworks
+     */
     public function make()
     {
-        if(!$this->bearer) $this->getBearer();
+        if(!$this->bearer) $this->refreshToken();
         return new static (
             $this->applicationId,
             $this->applicationSecret,
@@ -35,13 +35,23 @@ class Linnworks
             $this->server);
     }
 
-    public function getBearer()
+    /**
+     * Refresh the token using AuthorizeByApplication
+     */
+    public function refreshToken()
     {
         $res = $this->Auth()->AuthorizeByApplication();
         $this->bearer = $res['Token'];
         $this->server = $res['Server'];
     }
 
+    /**
+     * Create instance of API based off method called in
+     *
+     * @param $method
+     * @return mixed
+     * @throws \ReflectionException
+     */
     protected function getApiInstance($method)
     {
         $class = "\\Booni3\\Linnworks\\Api\\".ucwords($method);
@@ -56,6 +66,12 @@ class Linnworks
         throw new \BadMethodCallException("Undefined method [{$method}] called.");
     }
 
+    /**
+     * @param $method
+     * @param array $parameters
+     * @throws \Exception
+     * @return mixed
+     */
     public function __call($method, array $parameters)
     {
         return $this->getApiInstance($method);
