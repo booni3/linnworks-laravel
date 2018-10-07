@@ -12,8 +12,8 @@ Wrapper for the Linnworks API, as documented at [http://apps.linnworks.net/Api](
 
 Using Facade:
 
-    $linnworks = Linnworks::make();
-    $orders = $linnworks->Orders()->getOpenOrders(25,
+    $orders = Linnworks::Orders()->getOpenOrders(
+        25,
         1,
         null,
         null,
