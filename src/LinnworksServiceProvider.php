@@ -1,8 +1,8 @@
 <?php
 
-namespace Booni3\Linnworks;
+namespace Booni3\Linnworks\Laravel;
 
-use App\Library\Tools\CsvImport;
+use Booni3\Linnworks\Linnworks;
 use Illuminate\Support\ServiceProvider;
 
 class LinnworksServiceProvider extends ServiceProvider
@@ -17,6 +17,17 @@ class LinnworksServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/linnworks.php' => config_path('linnworks.php'),
         ], 'linnworks');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     * This will defer loading of the service until it is requested.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [Linnworks::class];
     }
 
     /**
@@ -37,7 +48,6 @@ class LinnworksServiceProvider extends ServiceProvider
 
             return new Linnworks($applicationId, $applicationSecret, $token);
         });
-
         $this->app->alias(Linnworks::class, 'linnworks');
     }
 

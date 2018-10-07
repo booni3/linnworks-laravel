@@ -1,6 +1,6 @@
 {
     "name": "booni3/linnworks-laravel",
-    "description": "Linnworks API service provider and facades for Laravel",
+    "description": "Linnworks API service provider and facade for Laravel",
     "license": "MIT",
     "authors": [
         {
@@ -10,20 +10,20 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "Booni3/Linnworks": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Booni3\\Linnworks\\": "src"
+            "Booni3\\Linnworks\\Laravel\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Booni3\\Linnworks\\LinnworksServiceProvider"
+                "Booni3\\Linnworks\\Laravel\\LinnworksServiceProvider"
             ],
             "aliases": {
-                "Linnworks": "Booni3\\Linnworks\\LinnworksFacade"
+                "Linnworks": "Booni3\\Linnworks\\Laravel\\LinnworksFacade"
             }
         }
     }
