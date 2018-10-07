@@ -19,7 +19,3 @@ Using Facade:
         null,
         'e41b4701-0885-430d-9623-d840d9d46dd6',
         null);
-        
-## Depriciated SDK
-
-Only some of the API has been created. The depreciated SKD folder contains a wide range of the potential API calls.
