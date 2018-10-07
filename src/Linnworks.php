@@ -2,8 +2,6 @@
 
 namespace Booni3\Linnworks;
 
-use Booni3\Linnworks\Api\Orders;
-
 class Linnworks
 {
     private $applicationId;
@@ -60,7 +58,7 @@ class Linnworks
     }
     
     /**
-     * @return Orders
+     * @return \Booni3\Linnworks\Api\Orders
      * @throws \ReflectionException
      */
     public function Orders()
