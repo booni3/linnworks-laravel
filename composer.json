@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "Booni3/Linnworks": "dev-master"
+        "Booni3/Linnworks": "^0.1"
     },
     "autoload": {
         "psr-4": {
